@@ -1,0 +1,28 @@
+#### Stručně odpovězte na následující otázky: ######
+
+1. Proč je nutné určovat, zda má výpočet pokračovat?
+==============================================================================
+Protože víme, že pokud je absolutní hodnota bodu v i-té iteraci větší než 2, tak půjde jeho hodnota do nekonečna - tedy není třeba dále počítat.
+Kontrolou tedy zajistíme, že nebudeme zbytečně počítat další iterace, když už víme, že jeho hodnota se bude blížit nekonečnu
+
+2. Byla "Line" vektorizace efektivní? Proč?
+==============================================================================
+Je efektivnější než referenční implementace, ale méně efektivní než implementace po malých částech. Důvodem je, že pokud vektorizujeme
+celý řádek a ukončujeme výpočet až ve chvíli, kdy jsou všechny hodnoty v řádku dokončeny, tak můžeme čekat většinu doby na dopočítání např. pouze jednoho bodu z celého řádku,
+i když už jsou ostatní hodnoty dopočítány.
+
+3. Jaká byla dosažena výkonnost v Intel Advisoru pro jednotlivé implementace 
+(v GFLOPS)?
+==============================================================================
+U line 5.86 GFLOPS (běh 2.64s) a u batch 5.84 GFLOPS (běh 0.83s)
+
+4. Jaká část kódu byla vektorizována v "Line" implementaci? Vyčteme tuto 
+informaci i u batch kalkulátoru?
+==============================================================================
+Vektorizován byl nejvíce zanořený cyklus pro výpočet hodnot v řádku jedné iterace.
+To stejné v batch kalkulátoru (vektorizována nejvíce zanořená smyčka - pro výpočet hodnot v části řádku iterace)
+
+5. Co vyčteme z Roofline modelu pro obě vektorizované implementace?
+==============================================================================
+Výkon v GFLOPS obou implementací je těsně nad hodnotou DRAM Bandwidth. Výkon je tedy omezen pamětí (především využitím cache) narozdíl od 
+původní referenční implementace, která byla omezena neefektivním výpočtem (chybějící vektorizace při velké aritmetické intenzitě).
